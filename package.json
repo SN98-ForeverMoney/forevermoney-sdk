@@ -1,0 +1,73 @@
+{
+    "name": "@forevermoney/sdk",
+    "version": "0.1.0",
+    "description": "Typed bridge and vault integration SDK for ForeverMoney",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/SN98-ForeverMoney/forevermoney-sdk.git"
+    },
+    "homepage": "https://github.com/SN98-ForeverMoney/forevermoney-sdk#readme",
+    "bugs": {
+        "url": "https://github.com/SN98-ForeverMoney/forevermoney-sdk/issues"
+    },
+    "keywords": [
+        "bittensor",
+        "bridge",
+        "defi",
+        "forevermoney",
+        "sdk"
+    ],
+    "type": "module",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "CHANGELOG.md",
+        "examples"
+    ],
+    "sideEffects": false,
+    "scripts": {
+        "build": "tsup",
+        "test": "vitest run",
+        "typecheck": "tsc --noEmit",
+        "typecheck:examples": "tsc --noEmit -p tsconfig.examples.json",
+        "format": "prettier --write . --ignore-unknown",
+        "format:check": "prettier --check . --ignore-unknown",
+        "smoke": "node scripts/package-smoke.mjs",
+        "verify": "npm run format:check && npm test && npm run typecheck && npm run build && npm run typecheck:examples && npm run smoke",
+        "pack:dry-run": "npm pack --dry-run",
+        "release:check": "node scripts/check-release-tag.mjs",
+        "test:fork": "./scripts/forks.sh",
+        "canary": "npm run build && node scripts/live-canary.mjs",
+        "prepack": "npm run verify"
+    },
+    "dependencies": {
+        "@polkadot/util": "^13.5.9",
+        "@polkadot/util-crypto": "^13.5.9",
+        "ethers": "^6.12.2"
+    },
+    "devDependencies": {
+        "@types/node": "^22.4.1",
+        "fast-check": "^4.9.0",
+        "prettier": "3.9.6",
+        "tsup": "^8.5.1",
+        "typescript": "^5.9.3",
+        "vitest": "^3.2.4"
+    },
+    "engines": {
+        "node": ">=22.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

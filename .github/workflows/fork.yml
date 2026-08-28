@@ -1,0 +1,31 @@
+name: Production forks
+
+on:
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+concurrency:
+    group: production-forks
+    cancel-in-progress: false
+
+jobs:
+    fork:
+        name: Verify production contracts
+        runs-on: ubuntu-latest
+        environment: production-fork
+        steps:
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+            - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+              with:
+                  node-version: 24
+                  cache: npm
+            - uses: foundry-rs/foundry-toolchain@908c540300062bd5a7e473851cdb4282204cee09 # v1.9.1
+              with:
+                  version: stable
+            - run: npm ci --no-audit
+            - run: npm run test:fork
+              env:
+                  BASE_RPC_URL: ${{ secrets.BASE_RPC_URL }}
+                  SUBTENSOR_RPC_URL: ${{ secrets.SUBTENSOR_RPC_URL }}

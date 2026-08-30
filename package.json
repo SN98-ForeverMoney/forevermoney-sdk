@@ -47,6 +47,7 @@
         "verify": "npm run format:check && npm test && npm run typecheck && npm run build && npm run typecheck:examples && npm run smoke",
         "pack:dry-run": "npm pack --dry-run",
         "release:check": "node scripts/check-release-tag.mjs",
+        "release:registry-check": "node scripts/check-registry-release.mjs",
         "test:fork": "./scripts/forks.sh",
         "canary": "npm run build && node scripts/live-canary.mjs",
         "prepack": "npm run verify"

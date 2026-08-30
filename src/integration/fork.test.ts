@@ -16,7 +16,7 @@ const baseForkRpcUrl = process.env.FOREVERMONEY_BASE_FORK_RPC_URL
 const subtensorForkRpcUrl = process.env.FOREVERMONEY_SUBTENSOR_FORK_RPC_URL
 const sender = '0x1111111111111111111111111111111111111111'
 const destination = encodeAddress(new Uint8Array(32).fill(7), 42)
-const bridgeAmountWei = 1_000_000_000n
+const bridgeAmountWei = 10_000_000_000_000_000n
 
 describe.skipIf(baseForkRpcUrl === undefined)('Base production fork', () => {
     it('uses production contracts at their canonical addresses', async () => {

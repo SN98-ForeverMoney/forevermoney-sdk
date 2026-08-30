@@ -31,4 +31,8 @@ jobs:
               env:
                   GITHUB_REF_NAME: ${{ github.event.release.tag_name }}
             - run: npm audit --omit=dev
-            - run: npm publish --access public
+            - run: npm run verify
+            - id: registry
+              run: npm run release:registry-check
+            - if: steps.registry.outputs.published != 'true'
+              run: npm publish --access public --ignore-scripts
